@@ -63,8 +63,7 @@ export default function Carousel({ children, duration = 5000, navigation = false
         {slides.map((_, index) => (
           <button
             key={index}
-            className={`w-3 h-3 rounded-full ${currentSlide === index ? 'bg-secondary-3 border-2 ' : 'bg-white/50'
-              }`}
+            className={`w-3 h-3 rounded-full ${currentSlide === index ? 'bg-secondary-3 border-2 ' : 'bg-white/50'}`}
             onClick={() => setCurrentSlide(index)}
           />
         ))}
