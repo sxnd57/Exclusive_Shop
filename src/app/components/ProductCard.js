@@ -1,7 +1,8 @@
 import { Eye, Heart, ShoppingCart } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 
-export default function ProductCard({ name, image, price, discount, sales }) {
+export default function ProductCard({ name, image, price, discount, sales, productDetail = "#" }) {
   return (
     <>
       <div className="card rounded-lg group transition-all duration-200 linear">
@@ -11,7 +12,9 @@ export default function ProductCard({ name, image, price, discount, sales }) {
             <div className="absolute bg-secondary-3 top-3 left-3 rounded-lg text-[12px] text-white py-1 px-3"> -{sales}</div>
             <div className="absolute flex flex-col space-y-3 top-3 right-3 opacity-0 translate-x-full group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
               <button className="bg-secondary-1 p-2 rounded-full hover:bg-gray-500 hover:text-white"><Heart size={18} /></button>
-              <button className="bg-secondary-1 p-2 rounded-full hover:bg-gray-500 hover:text-white"><Eye size={18} /></button>
+              <button className="bg-secondary-1 p-2 rounded-full hover:bg-gray-500 hover:text-white">
+                <Link href={productDetail}><Eye size={18} /></Link>
+              </button>
             </div>
             <div className="absolute w-full bottom-0 opacity-0 translate-y-full group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
               <button className="w-full bg-black text-white justify-center p-3 rounded-b-lg text-[16px] flex items-center gap-2">

@@ -1,18 +1,58 @@
 import SFPro from 'next/font/local';
 import './globals.css'
-import { Copyright, Heart, Search, SendHorizontal, ShoppingCart } from 'lucide-react';
+import { Copyright, Heart, LogOut, Search, SendHorizontal, ShoppingBag, ShoppingBagIcon, ShoppingCart, Star, User, XCircle } from 'lucide-react';
 import Image from 'next/image';
+import BackToTop from './components/BackToTop';
+import Dropdown from './components/Dropdown';
+import QRCode from '@/assets/images/Qrcode.png'
+import GGPlay from '@/assets/images/AppStore.png'
+import AppStore from '@/assets/images/GooglePlay.png'
+import Link from 'next/link';
+import Navigation from './components/Navigation';
 
 const fontPage = SFPro({
     src: '../fonts/SF-Pro.ttf',
     display: 'swap',
 })
 
+export const metadata = {
+    title: 'Exclusive',
+}
+
 export default function RootLayout({ children }) {
+
+    const options = [
+        {
+            icon: <User />,
+            label: "Manager my account",
+            link: "#"
+        },
+        {
+            icon: <ShoppingBagIcon />,
+            label: "My Order",
+            link: "#"
+        },
+        {
+            icon: <XCircle />,
+            label: "My Cancellations",
+            link: "#"
+        },
+        {
+            icon: <Star />,
+            label: "My Reviews",
+            link: "#"
+        },
+        {
+            icon: <LogOut />,
+            label: "Logout",
+            link: "#"
+        },
+    ]
+
     return (
         <html lang="en">
             <body className={fontPage.className}>
-                <div className="flex flex-col min-h-screen">
+                <div className="flex flex-col min-h-screen relative">
                     <div className="bg-black">
                         <div className="container">
                             <div className=" text-white h-12 flex items-center text-center text-[14px]">
@@ -29,14 +69,9 @@ export default function RootLayout({ children }) {
                     </div>
                     <div className="container">
                         <div className="mt-10 mb-4 flex items-center justify-between">
-                            <span className="font-bold text-2xl">Exclusive</span>
-                            <ul className="flex text-[16px] gap-12">
-                                <li className='cursor-pointer border-b-2 border-transparent hover:border-text-2'>Home</li>
-                                <li className='cursor-pointer border-b-2 border-transparent hover:border-text-2'>Contact</li>
-                                <li className='cursor-pointer border-b-2 border-transparent hover:border-text-2'>About</li>
-                                <li className='cursor-pointer border-b-2 border-transparent hover:border-text-2'>Sign Up</li>
-                            </ul>
-                            <div className="flex justify-between item-center">
+                            <Link href={'/'} className="font-bold text-2xl">Exclusive</Link>
+                            <Navigation />
+                            <div className="flex justify-between items-center">
                                 <div className="relative mr-7 block">
                                     <input type="text" className='bg-secondary-1 py-[7px] pl-5 focus:outline-0 text-sm rounded-l-[4px]' placeholder="What are you looking for ?" />
                                     <button className='absolute top-[50%] translate-y-[-50%] bg-secondary-1 h-full pr-3 rounded-r-[4px]'>
@@ -47,8 +82,16 @@ export default function RootLayout({ children }) {
                                     <Heart size={24} />
                                 </button>
                                 <button>
-                                    <ShoppingCart size={24} />
+                                    <Link href={'/cart'}>
+                                        <ShoppingCart size={24} />
+                                    </Link>
                                 </button>
+                                {/* Account dropdown with account */}
+                                <Dropdown options={options} className="ml-4">
+                                    <User size={22} />
+                                </Dropdown>
+                                {/* ============================ */}
+
                             </div>
                         </div>
                     </div>
@@ -56,6 +99,8 @@ export default function RootLayout({ children }) {
                     <div className="flex-1">
                         {children}
                     </div>
+
+                    {/* FOOTER */}
                     <footer className='bg-black text-text-1 font-light text-sm'>
                         <div className="container mt-[80px] mb-[60px]">
                             <div className="flex">
@@ -97,10 +142,10 @@ export default function RootLayout({ children }) {
                                     <li className='font-medium text-[20px]'>Download App</li>
                                     <li className='text-[12px] font-medium text-text-2 mt-6'>Save $3 with App New User Only</li>
                                     <li className='flex mt-2'>
-                                        <Image src={"/assets/images/Qrcode.png"} alt='QR Code' width={80} height={80} />
+                                        <Image src={QRCode} alt='QR Code' width={80} height={80} />
                                         <div className="mx-2">
-                                            <Image src={"/assets/images/AppStore.png"} alt='QR Code' width={110} height={40} />
-                                            <Image src={"/assets/images/GooglePlay.png"} alt='QR Code' width={110} height={40} />
+                                            <Image src={AppStore} alt='QR Code' width={110} height={40} />
+                                            <Image src={GGPlay} alt='QR Code' width={110} height={40} />
                                         </div>
                                     </li>
                                 </ul>
@@ -112,8 +157,15 @@ export default function RootLayout({ children }) {
                             <span>Copyright sxnd 2025. All right reserved</span>
                         </div>
                     </footer>
-                </div>
+                    {/* ============ */}
 
+
+                    {/* Button BackToTop */}
+                    <div className={`fixed bottom-8 right-8 z-50`}>
+                        <BackToTop />
+                    </div>
+                    {/* ================ */}
+                </div>
             </body>
         </html>
     );
